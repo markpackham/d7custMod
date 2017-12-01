@@ -1,0 +1,8 @@
+name = Cron Monitor
+description = Monitor cron runs and send an email
+package = Custom
+core = 7.x
+version = "7.x-1.0"
+configure = admin/config/cronmonitor
+project = "Custom"
+

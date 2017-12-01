@@ -1,0 +1,72 @@
+<?php
+
+function mymodule_menu()
+{
+    $items['mypage-html'] = array(
+        'title' => 'My page with HTML-style function',
+        'page callback' => 'mymodule_html_page',
+        'access callback' => TRUE,
+    );
+
+    $items['mypage-ra'] = array(
+        'title' => 'My page with render array function',
+        'page callback' => 'mymodule_ra_page',
+        'access callback' => TRUE,
+    );
+
+    return $items;
+}
+
+// Previous method (still works) of generating a page by returning HTML
+function mymodule_html_page()
+{
+    $text_one = "This is text one";
+    return theme('mymodule_function', array('text_one' => $text_one, 'text_two' => t('Text two')));
+}
+
+// New method of generating the render array and returning that.
+function mymodule_ra_page()
+{
+    $text_one = "This is text one";
+    $output = array(
+        '#theme' => 'mymodule_template',
+        '#type' => 'markup',
+        '#text_one' => $text_one,
+        '#text_two' => t('Dis be text 2'),
+
+        /*
+        'first_para' => array(
+            '#type' => 'markup',
+            '#markup' => '<p>A paragraph about some stuff…</p>',
+        ),
+             'second_para' => array(
+                    '#items' => array('first item', 'second item', 'third item'),
+                    '#theme' => 'item_list',
+                ),*/
+
+    );
+    return $output;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function mymodule_theme($existing, $type, $theme, $path)
+{
+    return array(
+        'mymodule_function' => array(
+            'variables' => array('text_one' => NULL, 'text_two' => NULL),
+        ),
+        'mymodule_template' => array(
+            'variables' => array('text_one' => NULL, 'text_two' => NULL),
+            'template' => 'mymodule_template',
+        ),
+    );
+}
+
+function theme_mymodule_function($variables)
+{
+    $output = "<h2>" . $variables['text_one'] . "</h2>";
+    $output .= "<p>" . $variables['text_two'] . "</p>";
+    return $output;
+}

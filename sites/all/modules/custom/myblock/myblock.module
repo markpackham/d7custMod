@@ -1,0 +1,73 @@
+<?php
+
+/*
+ * @file
+ * myblock.module
+ */
+
+/*
+ * Implements Hook Block Info
+ */
+function myblock_block_info()
+{
+    $blocks['myblock'] = array(
+        'info' => t('My Custom Block'),
+        // DRUPAL_CACHE_PER_ROLE will be assumed.
+    );
+
+    return $blocks;
+}
+
+/*
+ * Implements Hook Block View
+ */
+function myblock_block_view($delta = '')
+{
+    // This example is adapted from node.module.
+    $block = array();
+
+    switch ($delta) {
+        case 'myblock':
+            $block['subject'] = t('This is a Custom Block');
+            $block['content'] = t('test');
+            break;
+    }
+    return $block;
+}
+
+/*
+ * Implents Hook Menu
+ */
+function myblock_menu()
+{
+    $items['mypage'] = array(
+        'title' => t('My Page'),
+        'type' => MENU_NORMAL_ITEM,
+        //My Callback function
+        'page callback' => 'myblock_mypage',
+        //Use the Hook Permission
+        'access arguments' => array('access mypage'),
+    );
+    return $items;
+}
+
+/*
+ * My Callback function, used in Hook Menu
+ */
+function myblock_mypage()
+{
+    return 'Hi Mark, <strong>this is a test</strong>';
+}
+
+/*
+ *Implements Hook Permission
+ */
+function myblock_permission()
+{
+    return array(
+        'access mypage' => array(
+            'title' => t('Access My Page'),
+            'description' => t('Access My Page on my site, Mark.'),
+        ),
+    );
+}

@@ -1,0 +1,7 @@
+name = My Block
+description = Various blocks, pages, and functions for developers.
+package = Custom
+core = 7.x
+version = "7.x-1.0"
+project = "Custom"
+
