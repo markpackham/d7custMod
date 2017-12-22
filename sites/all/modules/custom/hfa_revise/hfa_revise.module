@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Implements hook_form_alter().
+ */
+function hfa_revise_form_alter(&$form, &$form_state, $form_id)
+{
+    //make sure it only runs on a specific form id
+    //krumo($form_id);
+
+    //We only want to target the user from /user/1/edit
+    switch ($form_id) {
+        case 'user_profile_form' :
+            //what variables are in the form
+            krumo($form);
+
+            //Change the description so people don't use easy to guess passwords
+            $form['account']['pass']['#description'] = t('To change the current user password, enter the new password in both fields. Do not use, "IDKFA", "admin", "password" or "1234" ');
+            break;
+    }
+}

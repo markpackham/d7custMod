@@ -1,0 +1,4 @@
+name = HFA revise (Hook Form Alter) avoid common passwords
+description = revise hook_form_alter in D7, warn user of common passwords not to use
+core = 7.x
+
